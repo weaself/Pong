@@ -40,43 +40,60 @@ y_change=0
 while not gameExit:
 	
 	
-	screen.fill(WHITE)
-	pygame.draw.rect(screen, BLACK, [firstPaddleLead_x,firstPaddleLead_y,10,firstPaddleLength])
-	pygame.draw.rect(screen, BLACK, [secondPaddleLead_x-15,secondPaddleLead_y,10,secondPaddleLength])
-	pygame.draw.rect(screen, BLACK, [ball_x,ball_y,10,10])
+	screen.fill(BLACK)
+	pygame.draw.rect(screen, WHITE, [firstPaddleLead_x,firstPaddleLead_y,10,firstPaddleLength])
+	pygame.draw.rect(screen, WHITE, [secondPaddleLead_x-15,secondPaddleLead_y,10,secondPaddleLength])
+	pygame.draw.rect(screen, WHITE, [ball_x,ball_y,10,10])
 	
 	pygame.display.update()
 	
 # This code lets the first paddle move around.
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
-			gameExit = True
+	# for event in pygame.event.get():
+		# if event.type == pygame.QUIT:
+			# gameExit = True
 				
 
-		if event.type == pygame.KEYDOWN:
+		# if event.type == pygame.KEYDOWN:
 			
-			if event.key == pygame.K_DOWN and firstPaddleLead_y < 600 - firstPaddleLength:
-				y_change = 10
-				print(y_change)
-			elif firstPaddleLead_y > 600 - firstPaddleLength:		
-				y_change = 0	
-			if event.key == pygame.K_UP:
-				y_change = -10
+			# if event.key == pygame.K_DOWN and firstPaddleLead_y < 600 - firstPaddleLength:
+				# y_change = 10
+				# print(y_change)
+				
+			# elif firstPaddleLead_y > 600 - firstPaddleLength:		
+				# y_change = 0	
+			# if event.key == pygame.K_UP:
+				# y_change = -10
 			
 			
-		if event.type == pygame.KEYUP:
-			if event.key == pygame.K_DOWN:
-				y_change = 0
-			elif event.key == pygame.K_UP:
-				y_change = 0
+		# if event.type == pygame.KEYUP:
+			# if event.key == pygame.K_DOWN:
+				# y_change = 0
+			# elif event.key == pygame.K_UP:
+				# y_change = 0
 				
 	# if firstPaddleLead_y + firstPaddleLength > 600 or firstPaddleLead_y < 0:
 		# print(firstPaddleLead_y)
+		
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			gameExit = True
+		if event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_DOWN:
+				y_change = 10
+				print(firstPaddleLead_y)	
+			elif event.key == pygame.K_UP:
+				y_change = -10
+				
+		if event.type == pygame.KEYUP:
+			y_change = 0
 	
-	
+	# if firstPaddleLead_y + firstPaddleLength > 600:
+		# y_change = 0
 	firstPaddleLead_y += y_change
-	
-
+	if firstPaddleLead_y + firstPaddleLength > 600:
+		y_change = 0
+	elif firstPaddleLead_y < 0:
+		y_change = 0
 	clock.tick(FPS)
 	
 pygame.quit() # needed to quit. Uninitializes everything
