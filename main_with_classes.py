@@ -11,6 +11,7 @@ class Pong(object):
     def __init__(self):
         self.x = pygame.init()
         self.gameExit = False
+        self.speed_of_the_ball = 10
 
         self.initialize_display(5, 70)
 
@@ -21,9 +22,11 @@ class Pong(object):
             pygame.draw.rect(self.screen, self.WHITE, [self.ball_x, self.ball_y, 10, 10])
 
             pygame.display.update()
+            #print(self.firstPaddleLead_y + self.firstPaddleLength)
 
-            self.keyboard_actions(10)
+            self.keyboard_actions(20)
             self.move_paddles()
+            self.move_ball()
 
             self.clock.tick(self.FPS)
 
@@ -80,22 +83,32 @@ class Pong(object):
         # if firstPaddleLead_y + firstPaddleLength > 600:
         # y_change = 0
     def move_paddles(self):
+
         self.firstPaddleLead_y += self.y_change
 
-        if self.firstPaddleLead_y + self.firstPaddleLength > 600:
+        if self.firstPaddleLead_y + self.firstPaddleLength >= 600:
             self.y_change = 0
-        elif self.firstPaddleLead_y < 0:
+        elif self.firstPaddleLead_y <= 0:
             self.y_change = 0
 
         self.secondPaddleLead_y += self.y_change_sec
 
-        if self.secondPaddleLead_y + self.firstPaddleLength > 600:
+        if self.secondPaddleLead_y + self.firstPaddleLength >= 600:
             self.y_change_sec = 0
-        elif self.secondPaddleLead_y < 0:
+        elif self.secondPaddleLead_y <= 0:
             self.y_change_sec = 0
 
     def move_ball(self):
-        pass
+
+        if self.ball_x > 800 - 10 or self.ball_x < 0:
+            print('Speed before having inverted the number: ', self.speed_of_the_ball)
+            self.speed_of_the_ball *= -1
+            print('Speed when having inverted the number: ', self.speed_of_the_ball)
+        print('Ball x before addition: ', self.ball_x)
+        self.ball_x += self.speed_of_the_ball
+        print('Is the speed still inverted? ', self.speed_of_the_ball)
+        self.ball_y += 5
+        print('Ball x after addition: ', self.ball_x)
 
 if __name__ == '__main__':
     Pong()
