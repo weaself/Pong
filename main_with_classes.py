@@ -11,7 +11,8 @@ class Pong(object):
     def __init__(self):
         self.x = pygame.init()
         self.gameExit = False
-        self.speed_of_the_ball = 10
+        self.speed_of_the_ball_y = 5
+        self.speed_of_the_ball_x = 10
 
         self.initialize_display(5, 70)
 
@@ -101,14 +102,16 @@ class Pong(object):
     def move_ball(self):
 
         if self.ball_x > 800 - 10 or self.ball_x < 0:
-            print('Speed before having inverted the number: ', self.speed_of_the_ball)
-            self.speed_of_the_ball *= -1
-            print('Speed when having inverted the number: ', self.speed_of_the_ball)
-        print('Ball x before addition: ', self.ball_x)
-        self.ball_x += self.speed_of_the_ball
-        print('Is the speed still inverted? ', self.speed_of_the_ball)
-        self.ball_y += 5
-        print('Ball x after addition: ', self.ball_x)
+            #print('Speed before having inverted the number: ', self.speed_of_the_ball)
+            self.speed_of_the_ball_x *= -1
+            #print('Speed when having inverted the number: ', self.speed_of_the_ball)
+        if self.ball_y > 600 - 10 or self.ball_y < 0:
+            self.speed_of_the_ball_y *= -1
+        #print('Ball x before addition: ', self.ball_x)
+        self.ball_x += self.speed_of_the_ball_x
+        #print('Is the speed still inverted? ', self.speed_of_the_ball)
+        self.ball_y += self.speed_of_the_ball_y
+        #print('Ball x after addition: ', self.ball_x)
 
 if __name__ == '__main__':
     Pong()
