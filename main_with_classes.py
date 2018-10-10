@@ -28,6 +28,7 @@ class Pong(object):
             self.keyboard_actions(20)
             self.move_paddles()
             self.move_ball()
+            self.check_if_player_loses()
 
             self.clock.tick(self.FPS)
 
@@ -116,6 +117,12 @@ class Pong(object):
         #print('Is the speed still inverted? ', self.speed_of_the_ball)
         self.ball_y += self.speed_of_the_ball_y
         #print('Ball x after addition: ', self.ball_x)
+
+    def check_if_player_loses(self):
+        if self.ball_x <= 10 and (self.ball_y > self.firstPaddleLead_y + 60 or self.ball_y < self.firstPaddleLead_y):
+            print('You lose!')
+        #print(self.ball_x <= 0 and (self.ball_y > self.firstPaddleLead_y + 60 or self.ball_y < self.firstPaddleLead_y))
+        print(self.ball_x, ' this is lead of the paddle: ', self.firstPaddleLead_y)
 
 if __name__ == '__main__':
     Pong()
