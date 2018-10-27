@@ -5,6 +5,7 @@ import pygame
 #from pygame.locals import *
 from sys import exit
 import random
+import time
 
 class Pong(object):
 
@@ -105,7 +106,7 @@ class Pong(object):
         if self.ball_x >= self.secondPaddleLead_x - 20 or self.ball_x <= self.firstPaddleLead_x + 10:
             print('The ball got to the paddle lead!', self.secondPaddleLead_x - 15)
             if self.ball_y > self.secondPaddleLead_y or self.ball_y < self.secondPaddleLead_y + self.secondPaddleLength:
-                print('The ball went beyond Y', self.ball_y, self.secondPaddleLead_y)
+                #print('The ball went beyond Y', self.ball_y, self.secondPaddleLead_y)
                 self.speed_of_the_ball_x *= -1
 
         #print(self.ball_x)
@@ -120,9 +121,39 @@ class Pong(object):
 
     def check_if_player_loses(self):
         if self.ball_x <= 10 and (self.ball_y > self.firstPaddleLead_y + 60 or self.ball_y < self.firstPaddleLead_y):
+            self.message_display('You lose!')
             print('You lose!')
-        #print(self.ball_x <= 0 and (self.ball_y > self.firstPaddleLead_y + 60 or self.ball_y < self.firstPaddleLead_y))
-        print(self.ball_x, ' this is lead of the paddle: ', self.firstPaddleLead_y)
+        elif self.ball_x <= 10 and (self.ball_y > self.firstPaddleLead_y + 60 or self.ball_y < self.firstPaddleLead_y):
+            self.message_display('You lose!')
+
+        if (self.ball_x + 10) >= (800 - 15) and (
+                self.ball_y > self.secondPaddleLead_y + 60 or self.ball_y < self.secondPaddleLead_y):
+            self.message_display('You lose!')
+            print('You lose!')
+        elif (self.ball_x + 10) >= 800 - 15 and (
+                self.ball_y > self.secondPaddleLead_y + 60 or self.ball_y < self.secondPaddleLead_y):
+            self.message_display('You lose!')
+            print('You lose!')
+
+    def message_display(self, text):
+        largeText = pygame.font.Font('freesansbold.ttf', 100)
+        TextSurf, TextRect = self.text_objects(text, largeText)
+        TextRect.center = ((800 / 2), (600 / 2))
+
+        print(TextRect, TextSurf, type(TextRect), type(TextSurf))
+        self.screen.blit(TextSurf, TextRect)
+
+        pygame.display.update()
+
+        time.sleep(2)
+
+        self.gameExit = True
+
+        #game_loop()
+
+    def text_objects(self, text, font):
+        textSurface = font.render(text, True, self.WHITE)
+        return textSurface, textSurface.get_rect()
 
 if __name__ == '__main__':
     Pong()
